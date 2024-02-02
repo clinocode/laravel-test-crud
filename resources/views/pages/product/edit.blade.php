@@ -116,7 +116,7 @@
         <div class="mb-3">
             <label for="image" class="form-label">Upload Gambar</label>
             <input type="file" class="form-control" id="image" name="default_image">
-
+            <span>file yang dapat diterima : png, jpg, jpeg, svg</span>
         </div>
 
         <button type="submit" class="btn btn-primary mb-4">Submit</button>

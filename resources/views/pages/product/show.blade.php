@@ -88,6 +88,12 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label for="image" class="form-label">Gambar</label>
+            <img src="{{ asset($product->default_image) }}" id="image" style="width:150px; height:70px;">
+        </div>
+
+
         <a type="submit" href="{{ route('product.index') }}" class="btn btn-primary mb-4">Kembali</a>
     </form>
 @endsection
