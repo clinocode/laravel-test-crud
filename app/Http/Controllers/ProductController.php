@@ -110,11 +110,13 @@ class ProductController extends Controller
             'stock' =>'required',
             'is_active' =>'required',
             'discount' =>'required',
-            'default_image'=>'required|image|mimes:png,jpg,jpeg,svg|max:2048'
         ]);
 
-        if($request->has('default_image')) {
+        if($request->hasFile('default_image')) {
+            $request->validate([
+            'default_image'=>'required|image|mimes:png,jpg,jpeg,svg|max:2048'
             
+        ]);
             $file = $request->default_image;
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
@@ -124,6 +126,20 @@ class ProductController extends Controller
             if(File::exists($product->default_image)){
                 File::delete($product->default_image);
             }
+
+            $product->update([
+                'category_id' => $request->category_id,
+                'uom_id' => $request->uom_id,
+                'brand_id' => $request->brand_id,
+                'name' => $request->name,
+                'description' => $request->description,
+                'condition' => $request->condition,
+                'price' => $request->price,
+                'stock' => $request->stock,
+                'is_active' => $request->is_active,
+                'discount' => $request->discount,
+                'default_image'=> $path.$filename
+            ]);
         }
 
        
@@ -139,7 +155,6 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'is_active' => $request->is_active,
             'discount' => $request->discount,
-            'default_image'=> $path.$filename
         ]);
 
         return redirect()->route('product.index')->with('success', 'product telah berhasil di perbarui');
